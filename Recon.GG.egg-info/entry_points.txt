@@ -1,0 +1,2 @@
+[console_scripts]
+recongg = recongg.app:main

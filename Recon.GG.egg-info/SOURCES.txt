@@ -1,0 +1,6 @@
+Recon.GG.egg-info/PKG-INFO
+Recon.GG.egg-info/SOURCES.txt
+Recon.GG.egg-info/dependency_links.txt
+Recon.GG.egg-info/entry_points.txt
+Recon.GG.egg-info/top_level.txt
+recongg/setup.py
