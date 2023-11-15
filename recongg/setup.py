@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="recon.gg",
+    name="recongg",
     version="0.1.0",
     author="Finallo",
     author_email="finallo360@gmail.com",
