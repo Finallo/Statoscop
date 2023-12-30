@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="recongg",
+    name="Statoscop",
     version="1.0.0",
     author="Finallo",
     author_email="finallo360@gmail.com",
-    description="A package to have data of Valorant esport.",
+    description="A package to have data of League, TFT and Valorant.",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
