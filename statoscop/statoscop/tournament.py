@@ -5,6 +5,7 @@ import numpy as np
 from datetime import datetime, timedelta
 import re
 
+
 def ongoing(reg):
     url = "https://www.vlr.gg/events/" + reg
     response = requests.get(url)
@@ -47,6 +48,7 @@ def ongoing(reg):
         ongoings = ongoings._append({'Match': match, 'Name': text, 'Date': date}, ignore_index=True)
 
     return ongoings
+
 
 def upcoming(reg):
     url = "https://www.vlr.gg/events/" + reg
@@ -92,6 +94,7 @@ def upcoming(reg):
         upcomings = upcomings._append({'Match': match, 'Name': text, 'Date': date}, ignore_index=True)
 
     return upcomings
+
 
 def completed(reg):
     url = "https://www.vlr.gg/events/" + reg
