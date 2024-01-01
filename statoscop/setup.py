@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="Statoscop",
-    version="1.1.0",
+    version="1.1.2",
     author="Finallo",
     author_email="finallo360@gmail.com",
     description="A package to have data of League, TFT and Valorant.",
@@ -13,5 +13,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.10",
+    python_requires=">=3.6",
 )

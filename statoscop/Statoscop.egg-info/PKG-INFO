@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: Statoscop
-Version: 1.1.0
+Version: 1.1.2
 Summary: A package to have data of League, TFT and Valorant.
 Author: Finallo
 Author-email: finallo360@gmail.com
@@ -8,4 +8,4 @@ Keywords: example project
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
-Requires-Python: >=3.10
+Requires-Python: >=3.6
