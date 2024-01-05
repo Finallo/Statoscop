@@ -4,61 +4,55 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-def team(eve):
-    url = "https://www.vlr.gg/event/" + eve
-    response = requests.get(url)
-    html = response.text
-    soup = BeautifulSoup(html, 'html.parser')
-
-    t_p = []
-    for link in soup.find_all('a', class_={'wf-module-item'}):
-        t_p.append(link.get('href'))
-
-    teams = []
-    players = []
-
-    current_team = None
-    for item in t_p:
-        if '/team/' in item:
-            current_team = re.search(r'/team/\d+/(.+)', item)
-            if current_team:
-                current_team = current_team.group(1)
-        else:
-            player_match = re.search(r'/player/\d+/(.+)', item)
-            if player_match:
-                players.append(player_match.group(1))
-                teams.append(current_team)
-
-    # Créer un DataFrame
-    team_player = pd.DataFrame({'Team': teams, 'Player': players})
-
-    return team_player
-
 def matchs(eve):
-    url = "https://www.vlr.gg/event/" + eve
+    url = "https://www.vlr.gg/event/matches/" + eve + "/?series_id=all"
     response = requests.get(url)
     html = response.text
     soup = BeautifulSoup(html, 'html.parser')
+    t_ns = soup.find_all('div', class_={'match-item-vs-team-name'})
+    team_name = [t_n.get_text(strip=True) for t_n in t_ns]
+
+    t_ss = soup.find_all('div', class_={'match-item-vs-team-score'})
+    team_score = [t_s.get_text(strip=True) for t_s in t_ss]
+
+    all_event = soup.find_all('div', class_={'match-item-event'})
+    event = [' '.join(all_e.stripped_strings) for all_e in all_event]
+
     matchs = []
-    for link in soup.find_all('a', class_={'bracket-item'}):
+    num_mat = []
+    for link in soup.find_all('a', class_={'wf-module-item'}):
         matchs.append(link.get('href'))
 
-    team_names = soup.find_all('div', class_={'bracket-item-team-name'})
-    name = [team_name.get_text(strip=True) for team_name in team_names]
-    team_scores = soup.find_all('div', class_={'bracket-item-team-score'})
-    scores = [team_score.get_text(strip=True) for team_score in team_scores]
-
-    num_mat = []
-    mat = []
     for item in matchs:
         match = re.match(r'/(?P<number>\d+)/(?P<text>.+)', item)
         if match:
             num_mat.append(match.group(1))
 
-    for link in soup.find_all('a', class_={'bracket-item'}):
-        mat.append(link.get('title'))
+    df = pd.DataFrame({'Num_Match': num_mat, 'Event': event, 'Team1': team_name[::2], 'Score Team1': team_score[::2],
+                       'Team2': team_name[1::2], 'Score Team2': team_score[1::2]})
+    return df
 
-    df = pd.DataFrame({'Numéro de match': num_mat, 'Match': mat, 'Team 1': name[::2], 'Score Team 1': scores[::2],
-                       'Team 2': name[1::2], 'Score Team 2': scores[1::2]})
+
+def team(eve):
+    df = matchs(eve)
+    Teams = set(df['Team1'].unique()).union(df['Team2'].unique())
+    return Teams
+
+def stats(eve):
+    url = "https://www.vlr.gg/event/stats/" + eve
+    response = requests.get(url)
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+
+    all_td = soup.find_all('td')
+
+    cell_content = [td.get_text(strip=True) for td in all_td]
+
+    num_columns = 21
+
+    table_data = [cell_content[i:i + num_columns] for i in range(0, len(cell_content), num_columns)]
+
+    df = pd.DataFrame(table_data, columns=[f'Col{i + 1}' for i in range(num_columns)])
+    df = df.drop(['Col2'], axis=1)
 
     return df
