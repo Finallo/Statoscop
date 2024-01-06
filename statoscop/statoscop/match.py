@@ -204,4 +204,65 @@ def match_perf_indiv(eve,num):
     df.set_index('Player')
     return df
 
-def eco_event(eve, num)
+def eco_event(eve, num):
+    url = "https://www.vlr.gg/" + eve + "?tab=economy"
+    response = requests.get(url)
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+    all_maps = soup.find_all("div", {"class": "vm-stats-game"})
+    perf = all_maps[num].find_all("table", {"class": "wf-table-inset mod-econ"})
+    eco_overall = perf[0]
+    eco_round = perf[1]
+
+    header = []
+    for els in eco_overall.find_all('th'):
+        header.append(els.get_text(strip=True))
+    header.remove('')
+    team = []
+    for els in eco_overall.find_all('div', {'class': 'team'}):
+        team.append(els.get_text(strip=True))
+    eco = []
+    for el in eco_overall.find_all("div", {"class": "stats-sq"}):
+        eco.append(el.get_text(strip=True).replace('\t\t', '').replace('\t', ' '))
+    df_eco = pd.DataFrame(columns=header)
+    df_eco.loc[0] = eco[0:5]
+    df_eco.loc[1] = eco[5:10]
+    df = pd.DataFrame(data=team, columns=['Team'])
+    df = pd.concat([df, df_eco], axis=1)
+    df.set_index(['Team'], inplace=True)
+    return df
+
+def eco_round(eve, num):
+    url = "https://www.vlr.gg/" + eve + "?tab=economy"
+    response = requests.get(url)
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+    all_maps = soup.find_all("div", {"class": "vm-stats-game"})
+    perf = all_maps[num].find_all("table", {"class": "wf-table-inset mod-econ"})
+    eco_overall = perf[0]
+    eco_round = perf[1]
+
+    header = []
+    for els in range(len(eco_round.find_all('div', class_="round-num"))):
+        header.append(els + 1)
+    bank = []
+    for el in eco_round.find_all('div', class_='bank'):
+        bank.append(el.get_text(strip=True))
+    sq = []
+    for el in eco_round.find_all('div', class_='rnd-sq'):
+        sq.append(el.get_text(strip=True))
+    team = ['Bank1']
+    for els in eco_overall.find_all('div', {'class': 'team'}):
+        team.append(els.get_text(strip=True))
+    team.append('Bank2')
+    num_columns = len(header)
+    df_banks = pd.DataFrame(bank, columns=['Bank'])
+    df_sq = pd.DataFrame(sq, columns=["SQ"])
+    df3 = pd.DataFrame(index=team, columns=header)
+    for i, col in enumerate(df3.columns):
+        df3.at['Bank1', col] = df_banks['Bank'][2 * i]
+        df3.at['Bank2', col] = df_banks['Bank'][2 * i + 1]
+    for i, col in enumerate(df3.columns):
+        df3.at[df3.index[1], col] = df_sq['SQ'][2 * i]
+        df3.at[df3.index[2], col] = df_sq['SQ'][2 * i + 1]
+    return df3
