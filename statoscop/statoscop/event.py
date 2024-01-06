@@ -45,14 +45,99 @@ def stats(eve):
     soup = BeautifulSoup(html, 'html.parser')
 
     all_td = soup.find_all('td')
-
     cell_content = [td.get_text(strip=True) for td in all_td]
 
     num_columns = 21
-
     table_data = [cell_content[i:i + num_columns] for i in range(0, len(cell_content), num_columns)]
+
 
     df = pd.DataFrame(table_data, columns=[f'Col{i + 1}' for i in range(num_columns)])
     df = df.drop(['Col2'], axis=1)
 
     return df
+
+def agents(eve):
+    url = "https://www.vlr.gg/event/agents/" + eve
+    response = requests.get(url)
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+
+    target_table = soup.find('table', class_='wf-table mod-pr-global')
+
+    # Vérifier si la table a été trouvée
+    if target_table:
+        # Trouver toutes les balises <td> dans la table
+        all_td = target_table.find_all('td')
+
+        # Extraire le texte de chaque cellule
+        cell_contents = [td.get_text(strip=True) for td in all_td]
+    # Diviser les données en lignes avec 20 colonnes par ligne
+    num_columns = 27
+    table_data = [cell_contents[i:i + num_columns] for i in range(0, len(cell_contents), num_columns)]
+
+    header_row = soup.find('div', class_='pr-matrix-map')
+    colums_headers = header_row.find_all('th') if header_row else []
+
+    title_list = ["Map", "Pick", "ATK", "DEF"]
+    for header in colums_headers:
+        img_tag = header.find('img')
+        if img_tag:
+            title_attribute = img_tag.get('title')
+            title_list.append(title_attribute)
+
+    # Créer un DataFrame pandas
+    df = pd.DataFrame(table_data, columns=title_list)
+    df['Map'] = df['Map'].str[1:]
+
+    return df
+
+def matrix(eve):
+    url = "https://www.vlr.gg/event/agents/" + eve
+    response = requests.get(url)
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+
+    dfs = {}
+    dfs_team = {}
+    maps = []
+    matrixs = soup.find_all('div', class_='pr-matrix-map')  # 6 matrices
+
+    for a in range(len(matrixs)):
+        list = []
+        for row in matrixs[a].find_all('tr', class_='pr-matrix-row'):
+            if 'mod-dropdown' not in row.get('class', []):
+                for cell in row.find_all('td'):
+                    value = 1 if 'mod-picked' in cell.get('class', []) else 0
+                    list.append(value)
+
+        el = 25
+        title_list = ["A", "B"]
+        for header in colums_headers:
+            img_tag = header.find('img')
+            if img_tag:
+                title_attribute = img_tag.get('title')
+                title_list.append(title_attribute)
+        sous_listes = [list[i:i + el] for i in range(0, len(list), el)]
+        dfs[a] = pd.DataFrame(sous_listes, columns=title_list)
+
+        th_tags = matrixs[a].find_all('th')
+        for th_tag in th_tags:
+            text = th_tag.get_text(strip=True)
+            maps.append(text[1:])
+        while ('' in maps):
+            maps.remove('')
+        df_maps = pd.DataFrame(maps)
+
+    teams = []
+    for x in range(len(matrixs[0].find_all('span', class_="text-of"))):
+        teams.append(matrixs[0].find_all('span', class_="text-of")[x].get_text(strip=True))
+        df_team = pd.DataFrame(teams)
+
+    for e in range(len(dfs)):
+        exec(f'matrice_{e} =  dfs[{e}]')
+        # exec(f'df{e} = df_team.insert(maps[e])')
+        exec(f'df{e} = pd.concat([df_team,matrice_{e}], axis=1)')
+        exec(f"df{e}.rename(columns={{df{e}.columns[0]: maps[{e}]}}, inplace=True)")
+        exec(f'df{e} = df{e}.drop(["A","B"], axis=1)')
+
+    return df0, df1, df2, df3, df4, df5, df6
