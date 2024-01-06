@@ -101,6 +101,8 @@ def matrix(eve):
     dfs_team = {}
     maps = []
     matrixs = soup.find_all('div', class_='pr-matrix-map')  # 6 matrices
+    header_row = soup.find('div', class_='pr-matrix-map')
+    colums_headers = header_row.find_all('th') if header_row else []
 
     for a in range(len(matrixs)):
         list = []
@@ -133,11 +135,16 @@ def matrix(eve):
         teams.append(matrixs[0].find_all('span', class_="text-of")[x].get_text(strip=True))
         df_team = pd.DataFrame(teams)
 
-    for e in range(len(dfs)):
-        exec(f'matrice_{e} =  dfs[{e}]')
-        # exec(f'df{e} = df_team.insert(maps[e])')
-        exec(f'df{e} = pd.concat([df_team,matrice_{e}], axis=1)')
-        exec(f"df{e}.rename(columns={{df{e}.columns[0]: maps[{e}]}}, inplace=True)")
-        exec(f'df{e} = df{e}.drop(["A","B"], axis=1)')
+    def create_dataframes(dfs, df_team, maps):
+        result_dfs = []
+        for e in range(len(dfs)):
+            matrice_e = dfs[e]
+            df_e = pd.concat([df_team, matrice_e], axis=1)
+            df_e.rename(columns={df_e.columns[0]: maps[e]}, inplace=True)
+            df_e = df_e.drop(["A", "B"], axis=1)
+            result_dfs.append(df_e)
 
+        return tuple(result_dfs)
+
+    df0, df1, df2, df3, df4, df5, df6 = create_dataframes(dfs, df_team, maps)
     return df0, df1, df2, df3, df4, df5, df6
