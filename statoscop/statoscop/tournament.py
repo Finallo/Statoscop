@@ -7,6 +7,11 @@ import re
 
 
 def ongoing(reg):
+    """
+    This function return a dataframe of all tournament ongoing from a region.
+    :param reg: (str). You can have reg from region().
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/events/" + reg
     response = requests.get(url)
     html = response.text
@@ -51,6 +56,11 @@ def ongoing(reg):
 
 
 def upcoming(reg):
+    """
+    This function return a dataframe of all tournament upcoming from a region.
+    :param reg: (str). You can have reg from region().
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/events/" + reg
     response = requests.get(url)
     html = response.text
@@ -97,6 +107,11 @@ def upcoming(reg):
 
 
 def completed(reg):
+    """
+    This function return a dataframe of all tournament completed from a region.
+    :param reg: (str). You can have reg from region().
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/events/" + reg
     response = requests.get(url)
     html = response.text

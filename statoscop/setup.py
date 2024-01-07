@@ -2,12 +2,12 @@ from setuptools import setup, find_packages
 
 setup(
     name="Statoscop",
-    version="1.2.0",
+    version="1.2.1",
     author="Finallo",
     author_email="finallo360@gmail.com",
-    description="A package to have data of League, TFT and Valorant.",
+    description="A package to have data of Valorant esport. (League and TFT are coming)",
     packages=find_packages(),
-    keywords='example project',
+    keywords='Valorant Stats',
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

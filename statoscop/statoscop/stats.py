@@ -5,6 +5,10 @@ from bs4 import BeautifulSoup
 import re
 
 def stats():
+    """
+    This function is to have a dataframe with all stats of players.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/stats"
     response = requests.get(url)
     html = response.text
