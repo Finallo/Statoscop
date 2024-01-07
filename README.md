@@ -4,7 +4,6 @@
 
 
 ### Available functions
-<br>
 <ul>
 <li>Region(): To have all regions available. </li>
 <li>Tournament : </li>
