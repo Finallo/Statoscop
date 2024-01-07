@@ -5,6 +5,12 @@ from bs4 import BeautifulSoup
 import re
 
 def match_stats(eve, num):
+    """
+    This function return a dataframe with all stats about a match.
+    :param eve: eve is the number of a match.
+    :param num: num is the number of a series.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/" + eve
     response = requests.get(url)
     html = response.text
@@ -139,6 +145,12 @@ def match_stats(eve, num):
         return df
 
 def match_perf_vs(eve, num):
+    """
+    This function return a dataframe with all stats about a number of kills/deaths between two players.
+    :param eve: eve is the number of a match.
+    :param num: num is the number of a series.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/" + eve + "?tab=performance"
     response = requests.get(url)
     html = response.text
@@ -174,6 +186,12 @@ def match_perf_vs(eve, num):
     return df
 
 def match_perf_indiv(eve,num):
+    """
+    This function return a dataframe with a number of 2k, 1v1 etc... for all players.
+    :param eve: eve is the number of a match.
+    :param num: num is the number of a series.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/" + eve + "?tab=performance"
     response = requests.get(url)
     html = response.text
@@ -205,6 +223,12 @@ def match_perf_indiv(eve,num):
     return df
 
 def eco_event(eve, num):
+    """
+    This function return a dataframe with all pistol won, eco, semi-eco, semi-buy and full-buy played and win.
+    :param eve: eve is the number of a match.
+    :param num: num is the number of a series.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/" + eve + "?tab=economy"
     response = requests.get(url)
     html = response.text
@@ -233,6 +257,12 @@ def eco_event(eve, num):
     return df
 
 def eco_round(eve, num):
+    """
+    This function return a dataframe with all pistol won, eco, semi-eco, semi-buy and full-buy played and win round after round.
+    :param eve: eve is the number of a match.
+    :param num: num is the number of a series.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/" + eve + "?tab=economy"
     response = requests.get(url)
     html = response.text

@@ -5,6 +5,11 @@ from bs4 import BeautifulSoup
 import re
 
 def matchs(eve):
+    """
+    This function return all matchs from a tournament.
+    :param eve: eve is the number of a tournament.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/event/matches/" + eve + "/?series_id=all"
     response = requests.get(url)
     html = response.text
@@ -34,11 +39,21 @@ def matchs(eve):
 
 
 def team(eve):
+    """
+    This function return a dictionary with all teams from a tournament.
+    :param eve: eve is the number of a tournament.
+    :return: a dictionary.
+    """
     df = matchs(eve)
     Teams = set(df['Team1'].unique()).union(df['Team2'].unique())
     return Teams
 
 def stats(eve):
+    """
+    This function return a dataframe to have a stats from all players who played on a tournament.
+    :param eve: eve is the number of a tournament.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/event/stats/" + eve
     response = requests.get(url)
     html = response.text
@@ -57,6 +72,11 @@ def stats(eve):
     return df
 
 def agents(eve):
+    """
+    This function return a dataframe with all agents played on a tournament per map and his percentage of players who played on.
+    :param eve: eve is the number of a tournament.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/event/agents/" + eve
     response = requests.get(url)
     html = response.text
@@ -92,6 +112,12 @@ def agents(eve):
     return df
 
 def matrix(eve):
+    """
+    This function return multiple dataframes with all agents played on a tournament per map and his percentage of players who played on.
+    Do 'matrix(eve)[a]' to see a dataframe. [a] represent an int number.
+    :param eve: eve is the number of a tournament.
+    :return: a dataframe.
+    """
     url = "https://www.vlr.gg/event/agents/" + eve
     response = requests.get(url)
     html = response.text

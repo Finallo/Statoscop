@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="Statoscop",
-    version="1.1.4",
+    version="1.2.0",
     author="Finallo",
     author_email="finallo360@gmail.com",
     description="A package to have data of League, TFT and Valorant.",
