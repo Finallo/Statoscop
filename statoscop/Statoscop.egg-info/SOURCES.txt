@@ -1,0 +1,11 @@
+setup.py
+Statoscop.egg-info/PKG-INFO
+Statoscop.egg-info/SOURCES.txt
+Statoscop.egg-info/dependency_links.txt
+Statoscop.egg-info/top_level.txt
+statoscop/__init__.py
+statoscop/event.py
+statoscop/match.py
+statoscop/region.py
+statoscop/stats.py
+statoscop/tournament.py
