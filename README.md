@@ -49,3 +49,8 @@
 <li><u>Stats():</u> Stats will give you a huge dataframe with all players registered and all their stats.</li>
 </ul>
 </ul>
+<hr />
+
+### Installation
+
+```pip install Statoscop```
