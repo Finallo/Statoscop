@@ -41,15 +41,15 @@
 <li><b><u>Match:</u></b></li>
     <ul>
     <li><u>Matchs_stats(eve, num):</u> Matchs_stats will allow you to have a dataframe with all stats about a 'eve' match.
-    <br>Use 'Numéro de match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
+    <br>Use 'Num_match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
     <li><u>Match_perf_vs(eve, num):</u> Match_perf_vs will allow you to have a dataframe with all winrate between two players for the match.
-    <br>Use 'Numéro de match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
+    <br>Use 'Num_match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
     <li><u>Match_perf_indiv(eve, num):</u> Match_perf_indiv will allow you to have a dataframe with all stats about a 'eve' match.
-    <br>Use 'Numéro de match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
+    <br>Use 'Num_match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
     <li><u>Eco_event(eve, num):</u> Eco_event will present you a dataframe with all event from a match (pistol won, eco round, semi-buy, etc...).
-    <br>Use 'Numéro de match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
+    <br>Use 'Num_match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
     <li><u>Eco_round(eve, num):</u> Eco_round present you a dataframe with all event from a match (pistol won, eco round, semi-buy, etc...) but round per round.
-    <br>Use 'Numéro de match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
+    <br>Use 'Num_match' from event.matchs(eve) as a string paramater for 'eve' and an int for 'num' to select a match from a BO.</li>
     </ul>
 <li><b><u>Stats:</u></b></li>
 <ul>

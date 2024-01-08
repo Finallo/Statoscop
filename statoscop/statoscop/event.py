@@ -65,7 +65,6 @@ def stats(eve):
     num_columns = 21
     table_data = [cell_content[i:i + num_columns] for i in range(0, len(cell_content), num_columns)]
 
-
     df = pd.DataFrame(table_data, columns=[f'Col{i + 1}' for i in range(num_columns)])
     df = df.drop(['Col2'], axis=1)
 

@@ -1,0 +1,5 @@
+Lib/
+statoscop/dist/
+statoscop/Statoscop.egg-info/
+test/
+venv/

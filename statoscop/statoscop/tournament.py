@@ -130,8 +130,7 @@ def completed(reg):
     for balise_a in balises_a:
         texts = balise_a.find("div", class_="event-item-title")
         text = texts.get_text(strip=True)
-        date = balise_a.find("div", class_="event-item-desc-item mod-dates").get_text(strip=True).replace('Dates',
-                                                                                                          '')
+        date = balise_a.find("div", class_="event-item-desc-item mod-dates").get_text(strip=True).replace('Dates','')
         if "—" in date:
             periode1, periode2 = date.split("—")
             if len(periode2) <= 2:
