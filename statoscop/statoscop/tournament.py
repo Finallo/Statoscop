@@ -44,9 +44,9 @@ def ongoing(reg):
                 mois1, jour1 = [x.strip() for x in periode1.split()]
                 mois2, jour2 = [x.strip() for x in periode2.split()]
                 date = f"{jour1} {mois1} - {jour2} {mois2}"
-        else:
-            mois1, jour1 = [x.strip() for x in periode1.split()]
-            date = f"{jour1} {mois1}"
+            else:
+                mois1, jour1 = [x.strip() for x in periode1.split()]
+                date = f"{jour1} {mois1}"
         url = balise_a.get('href')
         match = re.search(r"/event/(\d+)", url)
         match = match.group(1)
@@ -95,9 +95,9 @@ def upcoming(reg):
                 mois1, jour1 = [x.strip() for x in periode1.split()]
                 mois2, jour2 = [x.strip() for x in periode2.split()]
                 date = f"{jour1} {mois1} - {jour2} {mois2}"
-        else:
-            mois1, jour1 = [x.strip() for x in periode1.split()]
-            date = f"{jour1} {mois1}"
+            else:
+                mois1, jour1 = [x.strip() for x in periode1.split()]
+                date = f"{jour1} {mois1}"
         url = balise_a.get('href')
         match = re.search(r"/event/(\d+)", url)
         match = match.group(1)
@@ -118,8 +118,7 @@ def completed(reg):
     soup = BeautifulSoup(html, 'html.parser')
 
     def comp(balise):
-        return balise.name == 'a' and balise.find('span',
-                                                  class_='event-item-desc-item-status mod-completed') is not None
+        return balise.name == 'a' and balise.find('span', class_='event-item-desc-item-status mod-completed') is not None
 
     completeds = pd.DataFrame(columns=['Match', 'Name', 'Date'])
 
@@ -145,9 +144,9 @@ def completed(reg):
                 mois1, jour1 = [x.strip() for x in periode1.split()]
                 mois2, jour2 = [x.strip() for x in periode2.split()]
                 date = f"{jour1} {mois1} - {jour2} {mois2}"
-        else:
-            mois1, jour1 = [x.strip() for x in periode1.split()]
-            date = f"{jour1} {mois1}"
+            else:
+                mois1, jour1 = [x.strip() for x in periode1.split()]
+                date = f"{jour1} {mois1}"
         url = balise_a.get('href')
         match = re.search(r"/event/(\d+)", url)
         match = match.group(1)
