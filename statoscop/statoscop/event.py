@@ -171,5 +171,5 @@ def matrix(eve):
 
         return tuple(result_dfs)
 
-    df0, df1, df2, df3, df4, df5, df6 = create_dataframes(dfs, df_team, maps)
-    return df0, df1, df2, df3, df4, df5, df6
+    all_df = create_dataframes(dfs, df_team, maps)
+    return all_df
